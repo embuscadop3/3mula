@@ -9,7 +9,7 @@ const PeriodosDoDia = ({ dia, estudos }) => {
       {['manha', 'tarde', 'noite'].map(periodo => (
         <div key={periodo} className="periodo-container">
           <strong>{`${periodo.charAt(0).toUpperCase() + periodo.slice(1)}:`}</strong> {estudos[dia][periodo]}
-        </div>
+        </div> 
       ))}
     </div>
   );
