@@ -1,6 +1,5 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import './App.css';
-
 
 // Componente para a lista de dias e períodos
 const PeriodosDoDia = ({ dia, estudos }) => {
@@ -10,41 +9,54 @@ const PeriodosDoDia = ({ dia, estudos }) => {
       {['manha', 'tarde', 'noite'].map(periodo => (
         <div key={periodo} className="periodo-container">
           <strong>{`${periodo.charAt(0).toUpperCase() + periodo.slice(1)}:`}</strong> {estudos[dia][periodo]}
-        </div> 
+        </div>
       ))}
     </div>
   );
 };
 
-
 function App() {
   const diasDaSemana = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
 
-  const [estudos, setEstudos] = useState({
-    'Segunda-feira': { manha: '', tarde: '', noite: '' },
-    'Terça-feira': { manha: '', tarde: '', noite: '' },
-    'Quarta-feira': { manha: '', tarde: '', noite: '' },
-    'Quinta-feira': { manha: '', tarde: '', noite: '' },
-    'Sexta-feira': { manha: '', tarde: '', noite: '' },
-    'Sábado': { manha: '', tarde: '', noite: '' },
-    'Domingo': { manha: '', tarde: '', noite: '' },
+  const [estudos, setEstudos] = useState(() => {
+    // 3. Carregar dados do LocalStorage
+    const savedData = localStorage.getItem('estudos');
+    return savedData ? JSON.parse(savedData) : {
+      'Segunda-feira': { manha: '', tarde: '', noite: '' },
+      'Terça-feira': { manha: '', tarde: '', noite: '' },
+      'Quarta-feira': { manha: '', tarde: '', noite: '' },
+      'Quinta-feira': { manha: '', tarde: '', noite: '' },
+      'Sexta-feira': { manha: '', tarde: '', noite: '' },
+      'Sábado': { manha: '', tarde: '', noite: '' },
+      'Domingo': { manha: '', tarde: '', noite: '' },
+    };
   });
 
   const [atividade, setAtividade] = useState('');
   const [diaSelecionado, setDiaSelecionado] = useState('Segunda-feira');
   const [periodoSelecionado, setPeriodoSelecionado] = useState('manha');
-  const [mensagem, setMensagem] = useState(''); // Pode ser usada tanto para erro quanto para sucesso
-  const [tipoMensagem, setTipoMensagem] = useState(''); // 'erro' ou 'sucesso'
+  const [mensagem, setMensagem] = useState('');
+  const [tipoMensagem, setTipoMensagem] = useState('');
 
-  // Filtrar os períodos disponíveis (não preenchidos)
+  // 3. Salvar os dados no LocalStorage quando houver mudanças
+  useEffect(() => {
+    localStorage.setItem('estudos', JSON.stringify(estudos));
+  }, [estudos]);
+
   const getPeriodosDisponiveis = (dia) => {
     return ['manha', 'tarde', 'noite'].filter(periodo => !estudos[dia][periodo]);
   };
 
-  // Função para adicionar uma atividade
   const adicionarAtividade = useCallback(() => {
     if (!atividade) {
       setMensagem('Por favor, insira uma atividade.');
+      setTipoMensagem('erro');
+      return;
+    }
+
+    // 1. Impedir atividades duplicadas no mesmo período
+    if (estudos[diaSelecionado][periodoSelecionado] === atividade) {
+      setMensagem('Esta atividade já foi adicionada para este período.');
       setTipoMensagem('erro');
       return;
     }
@@ -59,17 +71,29 @@ function App() {
 
     setMensagem('Atividade adicionada com sucesso!');
     setTipoMensagem('sucesso');
-
-    // Limpar os campos
     setAtividade('');
-    setPeriodoSelecionado(getPeriodosDisponiveis(diaSelecionado)[0]); 
+    setPeriodoSelecionado(getPeriodosDisponiveis(diaSelecionado)[0]);
 
-    // Remover mensagem após 3 segundos
     setTimeout(() => {
       setMensagem('');
       setTipoMensagem('');
     }, 3000);
   }, [atividade, diaSelecionado, periodoSelecionado]);
+
+  // 2. Função para limpar todas as atividades
+  const limparAtividades = () => {
+    setEstudos({
+      'Segunda-feira': { manha: '', tarde: '', noite: '' },
+      'Terça-feira': { manha: '', tarde: '', noite: '' },
+      'Quarta-feira': { manha: '', tarde: '', noite: '' },
+      'Quinta-feira': { manha: '', tarde: '', noite: '' },
+      'Sexta-feira': { manha: '', tarde: '', noite: '' },
+      'Sábado': { manha: '', tarde: '', noite: '' },
+      'Domingo': { manha: '', tarde: '', noite: '' },
+    });
+    setMensagem('Todas as atividades foram removidas.');
+    setTipoMensagem('sucesso');
+  };
 
   return (
     <div className="app-container">
@@ -109,10 +133,14 @@ function App() {
         </p>
       )}
 
+
       {/* Renderizar os dias da semana */}
       {diasDaSemana.map(dia => (
         <PeriodosDoDia key={dia} dia={dia} estudos={estudos} />
       ))}
+
+      {/* 2. Botão para limpar todas as atividades */}
+      <button onClick={limparAtividades}>Limpar Atividades</button>
     </div>
   );
 }
