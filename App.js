@@ -126,6 +126,7 @@ function App() {
         <button onClick={adicionarAtividade}>Adicionar Estudo</button>
       </div>
 
+
       {/* Exibição de mensagem de erro ou sucesso */}
       {mensagem && (
         <p className={tipoMensagem === 'erro' ? 'mensagem-erro' : 'mensagem-sucesso'}>
