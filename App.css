@@ -1,103 +1,100 @@
 body {
-    background-color: #e6f7ff; /* Azul claro */
-    color: #333;
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+  background: linear-gradient(0deg, lightblue, blue, lightblue);
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+  background: linear-gradient(0deg,lightblue, blue, lightblue);
+  box-shadow: 0 4px 8x rgba(0, 0, 0, 0.1);
+}
   
-  .app-container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px; 
-    border-radius: 10px;
-    background-color: #fff; /* Fundo branco */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  h1 {
-    color: #ff0000; /* Vermelho vibrante para o título principal */
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
-  .input-container {
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 2px solid #ff4500; /* Bordas em vermelho */
-    border-radius: 5px;
-    background-color: #ffe6e6; /* Fundo suave em tom de vermelho claro */
-  }
-  
-  h2 {
-    color: #ff4500; /* Laranja vibrante para os dias da semana */
-    margin-bottom: 10px;
-  }
-  
-  .periodo-container {
-    margin-bottom: 10px;
-    padding: 5px;
-    border: 1px solid #ff4500; /* Bordas em vermelho */
-    border-radius: 5px;
-    background-color: #ffcccb; /* Fundo suave em tom de vermelho */
-  }
-  
-  label {
-    display: inline-block;
-    width: 100px;
-    color: #d9534f; /* Vermelho escuro para os rótulos */
-  }
-  
-  input[type="text"],
-  select {
-    width: calc(100% - 110px);
-    padding: 8px;
-    border: 1px solid #d9534f; /* Bordas do campo de texto em vermelho */
-    border-radius: 5px;
-    background-color: #ffe4e1; /* Fundo suave no campo de entrada */
-  }
-  
-  input[type="text"]:focus,
-  select:focus {
-    border-color: #ff6347; /* Realce da borda ao focar */
-    outline: none;
-  }
-  
-  button {
-    background-color: #ff4500; /* Vermelho */
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  button:hover {
-    background-color: #dc143c; /* Vermelho escuro */
-  }
-  
-  /* Estilos para mensagens de erro */
-  .mensagem-erro {
-    color: #b22222; /* Vermelho escuro */
-    background-color: #f8d7da; /* Fundo claro para erro */
-    padding: 10px;
-    border: 1px solid #b22222;
-    border-radius: 5px;
-    margin-top: 10px;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  /* Estilos para mensagens de sucesso */
-  .mensagem-sucesso {
-    color: #228b22; /* Verde escuro */
-    background-color: #d4edda; /* Fundo claro para sucesso */
-    padding: 10px;
-    border: 1px solid #228b22;
-    border-radius: 5px;
-    margin-top: 10px;
-    font-weight: bold;
-    text-align: center;
-  }
-  
+h1 {
+  color: black; /* Vermelho vibrante para o título principal */
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.input-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 2px solid #ff4500; /* Bordas em vermelho */
+  border-radius: 5px;
+  background-color: lightgray;
+}
+
+h2 {
+  color: black; /* Laranja vibrante para os dias da semana */
+  margin-bottom: 10px;
+}
+
+.periodo-container {
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ff4500; /* Bordas em vermelho */
+  border-radius: 5px;
+  background-color: white;
+}
+
+label {
+  display: inline-block;
+  width: 100px;
+  color: black; /* Vermelho escuro para os rótulos */
+}
+
+input[type="text"],
+select {
+  width: calc(100% - 110px);
+  padding: 8px;
+  border: 1px solid #d9534f; /* Bordas do campo de texto em vermelho */
+  border-radius: 5px;
+  background-color: white; /* Fundo suave no campo de entrada */
+}
+
+input[type="text"]:focus,
+select:focus {
+  border-color: #ff6347; /* Realce da borda ao focar */
+  outline: none;
+}
+
+button {
+  background: linear-gradient(45deg ,blue ,red);
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background: linear-gradient(45deg, red, blue);
+}
+
+.mensagem-erro {
+  color: #b22222;
+  background-color: #f8d7da; 
+  padding: 10px;
+  border: 1px solid #b22222;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.mensagem-sucesso {
+  color: #228b22; 
+  background-color: #d4edda; 
+  padding: 10px;
+  border: 1px solid #228b22;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: center;
+}
