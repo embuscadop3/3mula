@@ -107,6 +107,7 @@ function App() {
           ))}
         </select>
 
+
         <label>Período:</label>
         <select value={periodoSelecionado} onChange={(e) => setPeriodoSelecionado(e.target.value)}>
           {getPeriodosDisponiveis(diaSelecionado).map(periodo => (
