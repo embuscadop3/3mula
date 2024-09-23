@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import './App.css';
 
+
 // Componente para a lista de dias e períodos
 const PeriodosDoDia = ({ dia, estudos }) => {
   return (
