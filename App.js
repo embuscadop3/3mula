@@ -1,5 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import './App.css';
+
+// Componente para a lista de dias e períodos
+const PeriodosDoDia = ({ dia, estudos }) => {
+  return (
+    <div className="dia-container">
+      <h2>{dia}</h2>
+      {['manha', 'tarde', 'noite'].map(periodo => (
+        <div key={periodo} className="periodo-container">
+          <strong>{`${periodo.charAt(0).toUpperCase() + periodo.slice(1)}:`}</strong> {estudos[dia][periodo]}
+        </div>
+      ))}
+    </div>
+  );
+};
 
 function App() {
   const diasDaSemana = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
@@ -17,9 +31,16 @@ function App() {
   const [atividade, setAtividade] = useState('');
   const [diaSelecionado, setDiaSelecionado] = useState('Segunda-feira');
   const [periodoSelecionado, setPeriodoSelecionado] = useState('manha');
+  const [mensagem, setMensagem] = useState(''); // Pode ser usada tanto para erro quanto para sucesso
+  const [tipoMensagem, setTipoMensagem] = useState(''); // 'erro' ou 'sucesso'
 
-  const adicionarAtividade = () => {
-    if (!atividade) return;
+  // Função para adicionar uma atividade
+  const adicionarAtividade = useCallback(() => {
+    if (!atividade) {
+      setMensagem('Por favor, insira uma atividade.');
+      setTipoMensagem('erro');
+      return;
+    }
 
     setEstudos((prevEstudos) => ({
       ...prevEstudos,
@@ -29,9 +50,18 @@ function App() {
       },
     }));
 
+    setMensagem('Atividade adicionada com sucesso!');
+    setTipoMensagem('sucesso');
+
     // Limpar os campos após adicionar
     setAtividade('');
-  };
+
+    // Remover mensagem após 3 segundos
+    setTimeout(() => {
+      setMensagem('');
+      setTipoMensagem('');
+    }, 3000);
+  }, [atividade, diaSelecionado, periodoSelecionado]);
 
   return (
     <div className="app-container">
@@ -62,19 +92,16 @@ function App() {
         <button onClick={adicionarAtividade}>Adicionar Estudo</button>
       </div>
 
+      {/* Exibição de mensagem de erro ou sucesso */}
+      {mensagem && (
+        <p className={tipoMensagem === 'erro' ? 'mensagem-erro' : 'mensagem-sucesso'}>
+          {mensagem}
+        </p>
+      )}
+
+      {/* Renderizar os dias da semana */}
       {diasDaSemana.map(dia => (
-        <div key={dia} className="dia-container">
-          <h2>{dia}</h2>
-          <div className="periodo-container">
-            <strong>Manhã:</strong> {estudos[dia].manha}
-          </div>
-          <div className="periodo-container">
-            <strong>Tarde:</strong> {estudos[dia].tarde}
-          </div>
-          <div className="periodo-container">
-            <strong>Noite:</strong> {estudos[dia].noite}
-          </div>
-        </div>
+        <PeriodosDoDia key={dia} dia={dia} estudos={estudos} />
       ))}
     </div>
   );
