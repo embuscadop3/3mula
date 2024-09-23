@@ -139,6 +139,7 @@ function App() {
         <PeriodosDoDia key={dia} dia={dia} estudos={estudos} />
       ))}
 
+
       {/* 2. Botão para limpar todas as atividades */}
       <button onClick={limparAtividades}>Limpar Atividades</button>
     </div>
