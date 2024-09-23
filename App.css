@@ -76,3 +76,28 @@ body {
   button:hover {
     background-color: #dc143c; /* Vermelho escuro */
   }
+  
+  /* Estilos para mensagens de erro */
+  .mensagem-erro {
+    color: #b22222; /* Vermelho escuro */
+    background-color: #f8d7da; /* Fundo claro para erro */
+    padding: 10px;
+    border: 1px solid #b22222;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  /* Estilos para mensagens de sucesso */
+  .mensagem-sucesso {
+    color: #228b22; /* Verde escuro */
+    background-color: #d4edda; /* Fundo claro para sucesso */
+    padding: 10px;
+    border: 1px solid #228b22;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
